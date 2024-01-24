@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>Error</title>
+</head>
+<body>
+
+<h2>Error</h2>
+
+<p>An error occurred while processing your request. Please try again later.</p>
+
+<p th:if="${#strings.hasText(errorMessage)}" th:text="${errorMessage}"></p>
+
+<p>Go back to <a th:href="@{/}">home</a>.</p>
+
+</body>
+</html>

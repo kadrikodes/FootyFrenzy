@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Draft Page</title>
+</head>
+<body>
+<h1>Welcome to the Draft!</h1>
+
+<div th:each="draft, iterStat : ${draftData}">
+    <h2>Draft ${iterStat.count}</h2>
+
+    <!-- Display club information -->
+    <p th:text="${draft.clubName}"></p>
+
+    <!-- Display available players -->
+    <h3>Available Players:</h3>
+    <ul>
+        <li th:each="player : ${draft.availablePlayers}" th:text="${player}"></li>
+    </ul>
+
+    <!-- Display selected players by user -->
+    <h3>Selected Players:</h3>
+    <ul th:each="userSelection : ${draft.selectedPlayers}">
+        <li th:text="${userSelection.key}"></li>
+        <ul>
+            <li th:each="player : ${userSelection.value}" th:text="${player}"></li>
+        </ul>
+    </ul>
+</div>
+</body>
+</html>
