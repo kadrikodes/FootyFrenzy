@@ -1,65 +1,79 @@
 package football.frenzy.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Id;
-
-import java.util.ArrayList;
-import java.util.List;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
 @Entity
 public class UserData {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    private String userName;
-    private String userPassword;
+    private Long userId;
 
-    @OneToMany
-    private List<PlayerData> selectedPlayers = new ArrayList<>();
+    private String username;
+    private String password;
+    private String email;
+    private String firstName;
+    private String lastName;
 
-    public UserData() {
-        // Default constructor for JPA
+    public UserData(String username, String password, String email, String firstName, String lastName) {
+        this.username = username;
+        this.password = password;
+        this.email = email;
+        this.firstName = firstName;
+        this.lastName = lastName;
     }
 
-    public UserData(String userName, String userPassword) {
-        this.userName = userName;
-        this.userPassword = userPassword;
+    public Long getUserId() {
+        return userId;
     }
 
-    public Long getId() {
-        return id;
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 
-    public String getUserName() {
-        return userName;
+    public String getUsername() {
+        return username;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
-    public String getUserPassword() {
-        return userPassword;
+    public String getPassword() {
+        return password;
     }
 
-    public void setUserPassword(String userPassword) {
-        this.userPassword = userPassword;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
-    public List<PlayerData> getSelectedPlayers() {
-        return selectedPlayers;
+    public String getEmail() {
+        return email;
     }
 
-    public void addSelectedPlayer(PlayerData player) {
-        selectedPlayers.add(player);
+    public void setEmail(String email) {
+        this.email = email;
     }
 
-    public static List<UserData> createUserFromCSV() {
-        // Implement loading users from CSV if needed
-        return new ArrayList<>();
+    public String getFirstName() {
+        return firstName;
     }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+
+    // Constructors, getters, setters, and other methods
 }

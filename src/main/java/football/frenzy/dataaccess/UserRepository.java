@@ -8,6 +8,6 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
-public interface UserRepository extends ListCrudRepository<UserData, Long> {
+public interface UserRepository extends JpaRepository<UserData, Long> {
     Optional<UserData> findByUserName(String userName);
 }

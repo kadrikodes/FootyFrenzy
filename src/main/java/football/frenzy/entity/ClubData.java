@@ -6,7 +6,6 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
 
 
 
@@ -17,41 +16,39 @@ public class ClubData {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long clubId;
     private String clubName;
-
-    @OneToMany(mappedBy = "club", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "clubData", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<PlayerData> players;
 
-//    @ElementCollection
-//    private List<String> players;
-
-    // Default constructor for JPA
-    public ClubData() {
-    }
-
-    public ClubData(String clubName, List<PlayerData> playerNameList) {
+    public ClubData(String clubName, List<PlayerData> players) {
         this.clubName = clubName;
-        this.players = playerNameList;
+        this.players = players;
     }
 
-    public Long getId() {
-        return id;
+    public Long getClubId() {
+        return clubId;
+    }
+
+    public void setClubId(Long clubId) {
+        this.clubId = clubId;
     }
 
     public String getClubName() {
         return clubName;
     }
+
     public void setClubName(String clubName) {
         this.clubName = clubName;
+    }
+
+    public List<PlayerData> getPlayers() {
+        return players;
     }
 
     public void setPlayers(List<PlayerData> players) {
         this.players = players;
     }
 
-    public List<PlayerData> getPlayers() {
-        return players;
-    }
 
 }

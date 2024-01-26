@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Map;
 
 @Repository
-public interface DraftRepository extends ListCrudRepository<DraftData, Long> {
+public interface DraftRepository extends JpaRepository<DraftData, Long> {
 
     @Modifying
     @Query("UPDATE DraftData d SET d.randomClub = :randomClub, d.availablePlayers = :availablePlayers")

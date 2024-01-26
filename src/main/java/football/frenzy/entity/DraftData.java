@@ -1,81 +1,85 @@
 package football.frenzy.entity;
 
-import jakarta.persistence.ElementCollection;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import football.frenzy.entity.model.DraftRound;
+import football.frenzy.entity.model.DraftStatus;
+import jakarta.persistence.*;
 
 import java.util.List;
-import java.util.Map;
+
 
 @Entity
+@Table(name = "draft")
 public class DraftData {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long draftId;
 
-    private String randomClub;
+    @Enumerated(EnumType.STRING)
+    private DraftRound roundNumber;
 
-    @ElementCollection
-    private List<String> availablePlayers;
+    @ManyToOne
+    @JoinColumn(name = "current_club_id")
+    private ClubData currentClub;
 
-    @ElementCollection
-    private Map<String, List<String>> selectedPlayersByUser;
+    @Enumerated(EnumType.STRING)
+    private DraftStatus status;
 
-    @ElementCollection
-    private List<String> selectedClubs;
+    @ManyToMany
+    @JoinTable(
+            name = "draft_available_clubs",
+            joinColumns = @JoinColumn(name = "draft_id"),
+            inverseJoinColumns = @JoinColumn(name = "club_id")
+    )
+    private List<ClubData> availableClubs;
 
-    private ClubData club;
-
-    public ClubData getClub() {
-        return club;
+    public DraftData(DraftRound roundNumber, ClubData currentClub, DraftStatus status, List<ClubData> availableClubs) {
+        this.roundNumber = roundNumber;
+        this.currentClub = currentClub;
+        this.status = status;
+        this.availableClubs = availableClubs;
     }
 
-    public void setClub(ClubData club) {
-        this.club = club;
+    public Long getDraftId() {
+        return draftId;
     }
 
-    // Default constructor for Spring Data JPA
-    public DraftData() {
+    public void setDraftId(Long draftId) {
+        this.draftId = draftId;
     }
 
-    public DraftData(String randomClub, List<String> availablePlayers, Map<String, List<String>> selectedPlayersByUser, List<String> selectedClubs) {
-        this.randomClub = randomClub;
-        this.availablePlayers = availablePlayers;
-        this.selectedPlayersByUser = selectedPlayersByUser;
-        this.selectedClubs = selectedClubs;
+    public DraftRound getRoundNumber() {
+        return roundNumber;
     }
 
-    public Long getId() {
-        return id;
+    public void setRoundNumber(DraftRound roundNumber) {
+        this.roundNumber = roundNumber;
     }
 
-    public String getRandomClub() {
-        return randomClub;
+    public ClubData getCurrentClub() {
+        return currentClub;
     }
 
-    public List<String> getAvailablePlayers() {
-        return availablePlayers;
+    public void setCurrentClub(ClubData currentClub) {
+        this.currentClub = currentClub;
     }
 
-    public void setAvailablePlayers(List<String> availablePlayers) {
-        this.availablePlayers = availablePlayers;
+    public DraftStatus getStatus() {
+        return status;
     }
 
-    public Map<String, List<String>> getSelectedPlayersByUser() {
-        return selectedPlayersByUser;
+    public void setStatus(DraftStatus status) {
+        this.status = status;
     }
 
-    public List<String> getSelectedClubs() {
-        return selectedClubs;
+    public List<ClubData> getAvailableClubs() {
+        return availableClubs;
     }
 
-    public void setAvailableClubs(List<String> availableClubs) {
-        this.selectedClubs = availableClubs;
+    public void setAvailableClubs(List<ClubData> availableClubs) {
+        this.availableClubs = availableClubs;
     }
+// Other attributes, getters, setters, and relationships...
 
-    // Add setter methods for other fields as needed...
-
+    // Constructors, methods, etc.
 }
-

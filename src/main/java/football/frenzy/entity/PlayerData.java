@@ -10,28 +10,28 @@ public class PlayerData {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long playerId;
     private String clubName;
     private String playerName;
     private String position;
 
     @ManyToOne
     @JoinColumn(name = "club_id")
-    private ClubData club;
+    private ClubData clubData;
 
-    public PlayerData() {
-        // Default constructor for JPA
-    }
-
-    public PlayerData(String clubName, ArrayList<String> playerName, String position, ClubData club) {
+    public PlayerData(String clubName, String playerName, String position, ClubData clubData) {
         this.clubName = clubName;
-        this.playerName = String.valueOf(playerName);
+        this.playerName = playerName;
         this.position = position;
-        this.club = club;
+        this.clubData = clubData;
     }
 
-    public Long getId() {
-        return id;
+    public Long getPlayerId() {
+        return playerId;
+    }
+
+    public void setPlayerId(Long playerId) {
+        this.playerId = playerId;
     }
 
     public String getClubName() {
@@ -49,12 +49,21 @@ public class PlayerData {
     public void setPlayerName(String playerName) {
         this.playerName = playerName;
     }
+
     public String getPosition() {
         return position;
     }
 
     public void setPosition(String position) {
         this.position = position;
+    }
+
+    public ClubData getClubData() {
+        return clubData;
+    }
+
+    public void setClubData(ClubData clubData) {
+        this.clubData = clubData;
     }
 
     public String toString() {
