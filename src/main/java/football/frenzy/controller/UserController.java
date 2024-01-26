@@ -1,6 +1,7 @@
 package football.frenzy.controller;
 
 import football.frenzy.entity.UserData;
+import football.frenzy.entity.UserDraftSelection;
 import football.frenzy.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,7 +11,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.List;
 
-@Controller
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+@RestController
+@RequestMapping("/user")
 public class UserController {
 
     private final UserService userService;
@@ -20,18 +27,9 @@ public class UserController {
         this.userService = userService;
     }
 
-    @GetMapping("/users")
-    public String getAllUsers(Model model) {
-        List<UserData> allUsers = userService.getAllUsers();
-        model.addAttribute("users", allUsers);
-        return "userList"; // Thymeleaf template name
+    @PostMapping
+    public ResponseEntity<UserData> createUser(@RequestBody UserData user) {
+        UserData createdUser = userService.createUser(user);
+        return new ResponseEntity<>(createdUser, HttpStatus.CREATED);
     }
-
-    @PostMapping("/users/new")
-    public String addUser(UserData user) {
-        userService.addUser(user);
-        return "redirect:/users"; // Redirect to the list of users after adding a new one
-    }
-
-    // Additional methods for updating, deleting, or other user-related operations
 }

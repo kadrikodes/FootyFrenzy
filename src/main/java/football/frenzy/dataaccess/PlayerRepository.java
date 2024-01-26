@@ -8,11 +8,12 @@ import org.springframework.data.repository.ListCrudRepository;
 import java.util.List;
 
 public interface PlayerRepository extends JpaRepository<PlayerData, Long> {
-    List<PlayerData> findPlayerDataByPlayerNames(String name);
+
+    List<PlayerData> findByClubName(String clubName);
 
     List<PlayerData> findByPosition(String position);
 
-    List<PlayerData> findByClubName(ClubData randomClub);
+    List<PlayerData> findByClubId();
 
-    List<PlayerData> findByClub(ClubData randomClub);
+    List<PlayerData> findPlayerDataByPlayerNames(String name);
 }

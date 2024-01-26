@@ -21,6 +21,9 @@ public class ClubData {
     @OneToMany(mappedBy = "clubData", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<PlayerData> players;
 
+    public ClubData() {
+    }
+
     public ClubData(String clubName, List<PlayerData> players) {
         this.clubName = clubName;
         this.players = players;

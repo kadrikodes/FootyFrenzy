@@ -5,6 +5,7 @@ import football.frenzy.entity.model.DraftStatus;
 import jakarta.persistence.*;
 
 import java.util.List;
+import java.util.Map;
 
 
 @Entity
@@ -32,6 +33,18 @@ public class DraftData {
             inverseJoinColumns = @JoinColumn(name = "club_id")
     )
     private List<ClubData> availableClubs;
+
+    @OneToMany(mappedBy = "draft", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<PlayerData> availablePlayers;
+
+    @ElementCollection
+    @CollectionTable(name = "draft_selected_players", joinColumns = @JoinColumn(name = "draft_id"))
+    @MapKeyColumn(name = "user_key")
+    @Column(name = "selected_players")
+    private Map<String, List<String>> selectedPlayersByUser;
+
+    public DraftData() {
+    }
 
     public DraftData(DraftRound roundNumber, ClubData currentClub, DraftStatus status, List<ClubData> availableClubs) {
         this.roundNumber = roundNumber;
@@ -78,6 +91,22 @@ public class DraftData {
 
     public void setAvailableClubs(List<ClubData> availableClubs) {
         this.availableClubs = availableClubs;
+    }
+
+    public List<PlayerData> getAvailablePlayers() {
+        return availablePlayers;
+    }
+
+    public void setAvailablePlayers(List<PlayerData> availablePlayers) {
+        this.availablePlayers = availablePlayers;
+    }
+
+    public Map<String, List<String>> getSelectedPlayersByUser() {
+        return selectedPlayersByUser;
+    }
+
+    public void setSelectedPlayersByUser(Map<String, List<String>> selectedPlayersByUser) {
+        this.selectedPlayersByUser = selectedPlayersByUser;
     }
 // Other attributes, getters, setters, and relationships...
 

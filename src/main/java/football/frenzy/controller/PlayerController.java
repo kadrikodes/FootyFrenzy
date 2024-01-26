@@ -4,18 +4,15 @@ import football.frenzy.entity.PlayerData;
 import football.frenzy.service.PlayerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.server.ResponseStatusException;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Controller
+@RestController
+@RequestMapping("/players")
 public class PlayerController {
+
     private final PlayerService playerService;
 
     @Autowired
@@ -23,43 +20,69 @@ public class PlayerController {
         this.playerService = playerService;
     }
 
-    @GetMapping("/players")
-    public String getAllPlayers(Model model) {
-        List<PlayerData> allPlayers = playerService.getAllPlayers();
-        model.addAttribute("players", allPlayers);
-        return "playerList"; // Thymeleaf template name
+    @GetMapping
+    public ResponseEntity<List<PlayerData>> getAllPlayers() {
+        List<PlayerData> players = playerService.getAllPlayers();
+        return ResponseEntity.ok(players);
     }
 
-    @GetMapping("/playerData")
-    public List<PlayerData> getAllPlayerData() {
-        return playerService.findAll();
+    @GetMapping("/{clubId}")
+    public ResponseEntity<List<PlayerData>> getPlayersByClubId(@PathVariable Long clubId) {
+        List<PlayerData> players = playerService.getPlayersByClubId(clubId);
+        return ResponseEntity.ok(players);
+    }
+
+    @GetMapping("/byClub/{clubName}")
+    public ResponseEntity<List<PlayerData>> getPlayersByClub(@PathVariable String clubName) {
+        List<PlayerData> players = playerService.getPlayersByClub(clubName);
+
+        if (!players.isEmpty()) {
+            return ResponseEntity.ok(players);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @GetMapping("/byPosition/{position}")
+    public ResponseEntity<List<PlayerData>> getPlayersByPosition(@PathVariable String position) {
+        List<PlayerData> players = playerService.getPlayersByPosition(position);
+
+        if (!players.isEmpty()) {
+            return ResponseEntity.ok(players);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @GetMapping("/{playerId}")
-    public PlayerData getPlayerDataById(@PathVariable long playerId) {
-        PlayerData playerData = playerService.getPlayerDataById(playerId);
+    public ResponseEntity<PlayerData> getPlayerById(@PathVariable Long playerId) {
+        PlayerData player = playerService.getPlayerById(playerId);
 
-        if (playerData == null)
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Player data not found");
-
-        return playerData;
+        if (player != null) {
+            return ResponseEntity.ok(player);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 
-    @GetMapping("/name/{name}")
-    public List<PlayerData> getPlayerDataByName(@PathVariable String name) {
-        return playerService.getPlayerDataByPlayerName(name);
+    @GetMapping("/byPlayerName/{name}")
+    public ResponseEntity<List<PlayerData>> getPlayersByPlayerName(@PathVariable String name) {
+        List<PlayerData> players = playerService.getPlayerDataByPlayerName(name);
+
+        if (!players.isEmpty()) {
+            return ResponseEntity.ok(players);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 
-    @PostMapping("/addPlayer")
-    public String addPlayer(PlayerData player) {
-        playerService.addPlayer(player);
-        return "redirect:/players"; // Redirect to the list of players after adding a new one
+    @PostMapping
+    public ResponseEntity<PlayerData> addPlayer(@RequestBody PlayerData player) {
+        PlayerData addedPlayer = playerService.addPlayer(player);
+        return ResponseEntity.status(HttpStatus.CREATED).body(addedPlayer);
     }
 
-    @GetMapping("/search")
-    public List<PlayerData> searchPlayerData(@RequestParam(required = false) String position) {
-        return playerService.searchEntriesByCriteria(position);
-    }
 
-    // Additional methods for updating, deleting, or other player-related operations
+
 }
+
