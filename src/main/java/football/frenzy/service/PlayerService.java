@@ -1,8 +1,10 @@
 package football.frenzy.service;
 
 import football.frenzy.dataaccess.PlayerRepository;
+import football.frenzy.entity.ClubData;
 import football.frenzy.entity.DraftData;
 import football.frenzy.entity.PlayerData;
+import football.frenzy.entity.model.DraftRound;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,7 +25,7 @@ public class PlayerService {
     }
 
     public List<PlayerData> getPlayersByClubId(Long clubId) {
-        return playerRepository.findByClubId();
+        return playerRepository.findByClubClubId(clubId);
     }
     public List<PlayerData> getPlayersByClub(String clubName) {
         return playerRepository.findByClubName(clubName);
@@ -37,7 +39,7 @@ public class PlayerService {
     }
 
     public List<PlayerData> getPlayerDataByPlayerName(String name) {
-        return playerRepository.findPlayerDataByPlayerNames(name);
+        return playerRepository.findPlayerDataByPlayerName(name);
     }
 
     public PlayerData addPlayer(PlayerData player) {
@@ -45,12 +47,17 @@ public class PlayerService {
     }
 
     public boolean isValidSelectedPlayerSelection(DraftData draftData, String selectedPlayer) {
-        return false;
+        // Get the current club and round from the draft
+        ClubData currentClub = draftData.getCurrentClub();
+        DraftRound currentRound = draftData.getRoundNumber();
+
+        // Check if the selected player belongs to the current club and is available in the current round
+        return currentClub.getPlayers().stream()
+                .anyMatch(player -> player.getPlayerName().equals(selectedPlayer))
+                && draftData.getAvailablePlayers().contains(selectedPlayer);
+
     }
 
-
-    // Additional methods...
-
-    // Note: add more methods based on what functionalities you want for the players.
+    // TODO add more methods based on what functionalities I would want for the players.
 }
 

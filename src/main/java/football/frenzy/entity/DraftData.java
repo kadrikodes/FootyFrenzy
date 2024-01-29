@@ -34,7 +34,7 @@ public class DraftData {
     )
     private List<ClubData> availableClubs;
 
-    @OneToMany(mappedBy = "draft", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "draftData", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<PlayerData> availablePlayers;
 
     @ElementCollection

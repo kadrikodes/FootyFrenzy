@@ -2,6 +2,7 @@ package football.frenzy.controller;
 
 import football.frenzy.entity.DraftData;
 import football.frenzy.service.draftservice.DraftService;
+import football.frenzy.service.draftservice.DraftServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -25,12 +26,12 @@ public class DraftController {
 
     @PostMapping("/select")
     public ResponseEntity<String> selectPlayer(
-            @RequestParam Long draftId,
-            @RequestParam String userKey,
+            @RequestParam DraftData draftId,
+            @RequestParam String userName,
             @RequestParam String selectedPlayer
     ) {
         try {
-            ResponseEntity<String> draftData = draftService.selectPlayer(draftId, userKey, selectedPlayer);
+            ResponseEntity<String> draftData = draftService.selectPlayer(draftId, userName, selectedPlayer);
             return ResponseEntity.ok("Player selected successfully");
         } catch (Exception e) {
             return ResponseEntity.badRequest().body("Invalid player selection");

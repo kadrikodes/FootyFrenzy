@@ -3,7 +3,6 @@ package football.frenzy.entity;
 import jakarta.persistence.*;
 import jakarta.persistence.Id;
 
-import java.util.ArrayList;
 
 @Entity
 public class PlayerData {
@@ -17,13 +16,17 @@ public class PlayerData {
 
     @ManyToOne
     @JoinColumn(name = "club_id")
-    private ClubData clubData;
+    private ClubData club;
 
-    public PlayerData(String clubName, String playerName, String position, ClubData clubData) {
+    @ManyToOne
+    @JoinColumn(name = "draft_id")
+    private DraftData draftData;
+
+    public PlayerData(String clubName, String playerName, String position, ClubData club) {
         this.clubName = clubName;
         this.playerName = playerName;
         this.position = position;
-        this.clubData = clubData;
+        this.club = club;
     }
 
     public Long getPlayerId() {
@@ -58,12 +61,12 @@ public class PlayerData {
         this.position = position;
     }
 
-    public ClubData getClubData() {
-        return clubData;
+    public ClubData getClub() {
+        return club;
     }
 
-    public void setClubData(ClubData clubData) {
-        this.clubData = clubData;
+    public void setClub(ClubData club) {
+        this.club = club;
     }
 
     public String toString() {

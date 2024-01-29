@@ -10,5 +10,5 @@ import java.util.List;
 @Repository
 public interface ClubRepository extends JpaRepository<ClubData, Long> {
 
-    List<ClubData> findClubDataByClubNames(String name);
+    List<ClubData> findClubDataByClubName(String name);
 }

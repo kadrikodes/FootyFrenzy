@@ -18,7 +18,7 @@ public class ClubData {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long clubId;
     private String clubName;
-    @OneToMany(mappedBy = "clubData", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "club", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<PlayerData> players;
 
     public ClubData() {

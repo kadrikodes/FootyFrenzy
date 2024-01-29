@@ -1,6 +1,6 @@
 package football.frenzy.entity;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name = "user_draft_selection")

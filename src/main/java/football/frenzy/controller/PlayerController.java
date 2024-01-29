@@ -1,5 +1,7 @@
 package football.frenzy.controller;
 
+import football.frenzy.controller.requestmodel.RequestHandler;
+import football.frenzy.entity.DraftData;
 import football.frenzy.entity.PlayerData;
 import football.frenzy.service.PlayerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -80,6 +82,21 @@ public class PlayerController {
     public ResponseEntity<PlayerData> addPlayer(@RequestBody PlayerData player) {
         PlayerData addedPlayer = playerService.addPlayer(player);
         return ResponseEntity.status(HttpStatus.CREATED).body(addedPlayer);
+    }
+
+    @PostMapping("/validate-selection")
+    public ResponseEntity<String> validatePlayerSelection(
+            @RequestBody RequestHandler selectionRequest) {
+        DraftData draftId = selectionRequest.getDraftId();
+        String selectedPlayer = selectionRequest.getSelectedPlayer();
+
+        boolean isValidSelection = playerService.isValidSelectedPlayerSelection(draftId, selectedPlayer);
+
+        if (isValidSelection) {
+            return ResponseEntity.ok("Selected player is valid for the current draft round and club.");
+        } else {
+            return ResponseEntity.badRequest().body("Invalid player selection for the current draft round and club.");
+        }
     }
 
 

@@ -23,8 +23,8 @@ public class UserDraftSelectionController {
 
     @GetMapping
     public ResponseEntity<List<UserDraftSelection>> getUserSelections(
-            @PathVariable Long userId,
-            @PathVariable Long draftId
+            @PathVariable UserData userId,
+            @PathVariable DraftData draftId
     ) {
         List<UserDraftSelection> userSelections = userDraftSelectionService.getUserSelections(userId, draftId);
         return ResponseEntity.ok(userSelections);
@@ -44,7 +44,7 @@ public class UserDraftSelectionController {
         return response;
     }
 
-    // Add other endpoints as needed
+    // TODO Add other endpoints as needed
 
 
 }

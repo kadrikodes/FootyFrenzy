@@ -5,13 +5,7 @@ import football.frenzy.entity.UserData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
-import java.util.Scanner;
 
 @Service
 public class UserService {
@@ -29,14 +23,14 @@ public class UserService {
             throw new RuntimeException("Username already exists. Please choose a different one.");
         }
 
-        // Additional validation or business logic can be added
-
+        // TODO Add validation or business logic
         // Save the new user
         return userRepository.save(userData);
     }
 
-    public boolean validateUserKey(String userKey) {
-        return false;
+    public boolean validateUserName(String userName) {
+        Optional<UserData> userOptional = userRepository.findByUsername(userName);
+        return userOptional.isPresent();
     }
 }
 
