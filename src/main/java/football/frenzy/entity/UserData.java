@@ -71,6 +71,4 @@ public class UserData {
         this.lastName = lastName;
     }
 
-
-    // Constructors, getters, setters, and other methods
 }

@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
 import java.util.Random;
 
 @Service
@@ -62,7 +61,5 @@ public class ClubService {
         return allClubs;
     }
 
-
-    // Other club-related operations can be added based on your needs
 }
 

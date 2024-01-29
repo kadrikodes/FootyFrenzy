@@ -45,8 +45,6 @@ public class UserDraftSelectionController {
     }
 
     // TODO Add other endpoints as needed
-
-
 }
 
 

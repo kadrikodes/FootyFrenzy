@@ -70,7 +70,6 @@ public class UserDraftSelection {
     public void setSelectedClub(ClubData selectedClub) {
         this.selectedClub = selectedClub;
     }
-    // Constructors, getters, and setters...
 
 }
 

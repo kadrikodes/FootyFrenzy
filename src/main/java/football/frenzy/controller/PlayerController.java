@@ -98,8 +98,5 @@ public class PlayerController {
             return ResponseEntity.badRequest().body("Invalid player selection for the current draft round and club.");
         }
     }
-
-
-
 }
 

@@ -108,7 +108,4 @@ public class DraftData {
     public void setSelectedPlayersByUser(Map<String, List<String>> selectedPlayersByUser) {
         this.selectedPlayersByUser = selectedPlayersByUser;
     }
-// Other attributes, getters, setters, and relationships...
-
-    // Constructors, methods, etc.
 }

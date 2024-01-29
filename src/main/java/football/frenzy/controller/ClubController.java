@@ -4,12 +4,8 @@ import football.frenzy.entity.ClubData;
 import football.frenzy.entity.PlayerData;
 import football.frenzy.service.ClubService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -45,7 +41,5 @@ public class ClubController {
         List<PlayerData> players = clubService.getPlayersByClubId(clubId);
         return ResponseEntity.ok(players);
     }
-
-    // Other existing methods remain unchanged
 }
 

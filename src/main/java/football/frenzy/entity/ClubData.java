@@ -52,6 +52,4 @@ public class ClubData {
     public void setPlayers(List<PlayerData> players) {
         this.players = players;
     }
-
-
 }
