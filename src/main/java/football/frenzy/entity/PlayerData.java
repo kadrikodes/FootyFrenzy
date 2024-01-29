@@ -1,5 +1,6 @@
 package football.frenzy.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import jakarta.persistence.Id;
 
@@ -16,6 +17,7 @@ public class PlayerData {
 
     @ManyToOne
     @JoinColumn(name = "club_id")
+    @JsonBackReference
     private ClubData club;
 
     @ManyToOne

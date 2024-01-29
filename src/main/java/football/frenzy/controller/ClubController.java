@@ -39,7 +39,11 @@ public class ClubController {
     @GetMapping("/{clubId}/players")
     public ResponseEntity<List<PlayerData>> getPlayersByClubId(@PathVariable Long clubId) {
         List<PlayerData> players = clubService.getPlayersByClubId(clubId);
-        return ResponseEntity.ok(players);
+        if (players != null && !players.isEmpty()) {
+            return ResponseEntity.ok(players);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 }
 

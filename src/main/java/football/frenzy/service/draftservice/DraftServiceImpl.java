@@ -57,10 +57,10 @@ public class DraftServiceImpl implements DraftService {
     }
 
     @Override
-    public ResponseEntity<String> selectPlayer(DraftData draftId, String userName, String selectedPlayer) {
+    public ResponseEntity<String> selectPlayer(Long draftId, String userName, String selectedPlayer) {
         //logic to validate and record user selections
         // Retrieving the draft from the repository, update the state, and save it back
-        DraftData draftData = draftRepository.findById(draftId.getDraftId()).orElse(null);
+        DraftData draftData = draftRepository.findById(draftId).orElse(null);
         if (draftData == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Draft not found");
         }

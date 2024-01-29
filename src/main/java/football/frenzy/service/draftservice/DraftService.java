@@ -10,7 +10,7 @@ import java.util.List;
 public interface DraftService {
     DraftData initiateDraft();
 
-    ResponseEntity<String> selectPlayer(DraftData draftId, String userName, String selectedPlayer);
+    ResponseEntity<String> selectPlayer(Long draftId, String userName, String selectedPlayer);
 
     DraftData getDraftStatus(DraftData draftId);
 

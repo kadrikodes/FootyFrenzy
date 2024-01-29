@@ -25,7 +25,7 @@ public class DraftController {
 
     @PostMapping("/select")
     public ResponseEntity<String> selectPlayer(
-            @RequestParam DraftData draftId,
+            @RequestParam Long draftId,
             @RequestParam String userName,
             @RequestParam String selectedPlayer
     ) {
