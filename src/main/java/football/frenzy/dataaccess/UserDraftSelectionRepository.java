@@ -11,4 +11,6 @@ import java.util.List;
 @Repository
 public interface UserDraftSelectionRepository extends JpaRepository<UserDraftSelection, Long> {
     List<UserDraftSelection> findByUserIdAndDraftId(UserData userId, DraftData draftId);
+//    List<UserDraftSelection> findByUserIdAndDraftId(Long userId, Long draftId);
+
 }

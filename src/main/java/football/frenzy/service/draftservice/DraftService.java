@@ -19,4 +19,6 @@ public interface DraftService {
     void updateDraftState(DraftData draftData, String userName, String selectedPlayer);
 
     List<UserDraftSelection> getUserDraftSelections(UserData userId, DraftData draftId);
+
+//    List<UserDraftSelection> getUserDraftSelections(Long userId, Long draftId);
 }

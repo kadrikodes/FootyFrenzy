@@ -24,6 +24,10 @@ public class UserDraftSelectionService {
         return userDraftSelectionRepository.findByUserIdAndDraftId(userId, draftId);
     }
 
+//    public List<UserDraftSelection> getUserSelections(Long userId, Long draftId) {
+//        return userDraftSelectionRepository.findByUserIdAndDraftId(userId, draftId);
+//    }
+
     public ResponseEntity<String> addUserSelection(UserDraftSelection userDraftSelection) {
         // TODO Implement more logic to validate and add user draft selection
         userDraftSelectionRepository.save(userDraftSelection);

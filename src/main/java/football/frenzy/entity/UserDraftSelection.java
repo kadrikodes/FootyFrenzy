@@ -71,5 +71,31 @@ public class UserDraftSelection {
         this.selectedClub = selectedClub;
     }
 
+    public Long getUserIdAsLong() {
+        return userId != null ? userId.getUserId() : null;
+    }
+
+    public Long getDraftIdAsLong() {
+        return (draftId != null) ? draftId.getDraftId() : null;
+    }
+
+    public void setUserIdFromLong(Long userId) {
+        if (userId != null) {
+            this.userId = new UserData(); // Assuming you have a no-arg constructor in UserData
+            this.userId.setUserId(userId);
+        } else {
+            this.userId = null;
+        }
+    }
+
+    public void setDraftIdFromLong(Long draftId) {
+        if (draftId != null) {
+            this.draftId = new DraftData(); // Assuming you have a no-arg constructor in DraftData
+            this.draftId.setDraftId(draftId);
+        } else {
+            this.draftId = null;
+        }
+    }
+
 }
 

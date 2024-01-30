@@ -153,5 +153,19 @@ public class DraftServiceImpl implements DraftService {
             return Collections.emptyList();
         }
     }
+
+//    @Override
+//    public List<UserDraftSelection> getUserDraftSelections(Long userId, Long draftId) {
+//        // Retrieve the UserDraftSelection entities from the repository
+//        List<UserDraftSelection> userDraftSelections = userDraftSelectionRepository.findByUserIdAndDraftId(userId, draftId);
+//
+//        // Check if there are selections and return the list
+//        if (!userDraftSelections.isEmpty()) {
+//            return userDraftSelections;
+//        } else {
+//            // TODO throw an exception or return null
+//            return Collections.emptyList();
+//        }
+//    }
 }
 

@@ -30,6 +30,23 @@ public class UserDraftSelectionController {
         return ResponseEntity.ok(userSelections);
     }
 
+//    @GetMapping
+//    public ResponseEntity<List<UserDraftSelection>> getUserSelections(
+//            @PathVariable Long userId,
+//            @PathVariable Long draftId
+//    ) {
+////        UserData userData = new UserData();
+////        userData.getUserId().longValue();// Convert userId to UserData
+////        DraftData draftData = new DraftData();
+////        draftData.getDraftId().longValue();// Convert draftId to DraftData
+//
+//        // Use userData and draftData in your service method
+//        List<UserDraftSelection> userSelections = userDraftSelectionService.getUserSelections(userId, draftId);
+//
+//        return ResponseEntity.ok(userSelections);
+//    }
+
+
     @PostMapping("/add")
     public ResponseEntity<String> addUserSelection(
             @PathVariable UserData userId,
