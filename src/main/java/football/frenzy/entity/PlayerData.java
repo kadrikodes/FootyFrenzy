@@ -11,7 +11,7 @@ public class PlayerData {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long playerId;
-    private String clubName;
+//    private String clubName;
     private String playerName;
     private String position;
 
@@ -19,6 +19,9 @@ public class PlayerData {
     @JoinColumn(name = "club_id")
     @JsonBackReference
     private ClubData club;
+//    @ManyToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "club_id")
+//    private ClubData club;
 
     @ManyToOne
     @JoinColumn(name = "draft_id")
@@ -27,13 +30,16 @@ public class PlayerData {
     public PlayerData() {
     }
 
-    public PlayerData(String clubName, String playerName, String position, ClubData club) {
-        this.clubName = clubName;
+//    public PlayerData(String clubName, String playerName, String position, ClubData club) {
+//        this.clubName = clubName;
+//        this.playerName = playerName;
+//        this.position = position;
+//        this.club = club;
+//    }
+    public PlayerData(String playerName, String position) {
         this.playerName = playerName;
         this.position = position;
-        this.club = club;
     }
-
     public Long getPlayerId() {
         return playerId;
     }
@@ -42,13 +48,13 @@ public class PlayerData {
         this.playerId = playerId;
     }
 
-    public String getClubName() {
-        return clubName;
-    }
+//    public String getClubName() {
+//        return clubName;
+//    }
 
-    public void setClubName(String clubName) {
-        this.clubName = clubName;
-    }
+//    public void setClubName(String clubName) {
+//        this.clubName = clubName;
+//    }
 
     public String getPlayerName() {
         return playerName;
@@ -74,7 +80,7 @@ public class PlayerData {
         this.club = club;
     }
 
-    public String toString() {
-        return clubName + ": " + playerName;
-    }
+//    public String toString() {
+//        return clubName + ": " + playerName;
+//    }
 }

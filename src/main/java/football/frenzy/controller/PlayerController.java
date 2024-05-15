@@ -1,9 +1,11 @@
 package football.frenzy.controller;
 
 import football.frenzy.controller.requestmodel.RequestHandler;
+import football.frenzy.dto.PlayerDataDTO;
 import football.frenzy.entity.DraftData;
 import football.frenzy.entity.PlayerData;
 import football.frenzy.service.PlayerService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -78,10 +80,23 @@ public class PlayerController {
         }
     }
 
-    @PostMapping
-    public ResponseEntity<PlayerData> addPlayer(@RequestBody PlayerData player) {
-        PlayerData addedPlayer = playerService.addPlayer(player);
-        return ResponseEntity.status(HttpStatus.CREATED).body(addedPlayer);
+//    @PostMapping
+//    public ResponseEntity<PlayerData> addPlayer(@RequestBody PlayerData player) {
+//        PlayerData addedPlayer = playerService.addPlayer(player);
+//        return ResponseEntity.status(HttpStatus.CREATED).body(addedPlayer);
+//    }
+//    @PostMapping
+//    public ResponseEntity<PlayerData> addPlayer(@Valid @RequestBody PlayerData playerData, @RequestParam Long clubId) {
+//        PlayerData savedPlayer = playerService.addPlayer(playerData, clubId);
+//        return ResponseEntity.ok(savedPlayer);
+//    }
+    @PostMapping("/{clubId}")
+    public ResponseEntity<PlayerData> addPlayerToClub(@PathVariable Long clubId, @RequestBody PlayerDataDTO playerDto) {
+        PlayerData player = new PlayerData();
+        player.setPlayerName(playerDto.getPlayerName());
+        player.setPosition(playerDto.getPosition());
+        PlayerData savedPlayer = playerService.addPlayerToClub(clubId, player);
+        return ResponseEntity.ok(savedPlayer);
     }
 
     @PostMapping("/validate-selection")

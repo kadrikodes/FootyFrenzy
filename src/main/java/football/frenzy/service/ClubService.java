@@ -7,6 +7,7 @@ import football.frenzy.entity.PlayerData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
@@ -29,10 +30,15 @@ public class ClubService {
         return clubRepository.findById(clubId).orElse(null);
     }
 
+//    public List<PlayerData> getPlayersByClubId(Long clubId) {
+//        ClubData club = clubRepository.findById(clubId).orElse(null);
+//        return club != null ? club.getPlayers() : Collections.emptyList();
+//    }
     public List<PlayerData> getPlayersByClubId(Long clubId) {
         ClubData club = clubRepository.findById(clubId).orElse(null);
-        return club != null ? club.getPlayers() : Collections.emptyList();
+        return club != null ? new ArrayList<>(club.getPlayers()) : Collections.emptyList();
     }
+
 
     public ClubData getRandomAvailableClub(DraftData draftData) {
         List<ClubData> availableClubs = getAllAvailableClubs(draftData);
@@ -61,14 +67,18 @@ public class ClubService {
         return allClubs;
     }
 
-    public ClubData createClub(ClubData club) {
-        // Check if user with the same username already exists
-        if (clubRepository.findByClubName(club.getClubName()).isPresent()) {
-            throw new RuntimeException("ClubName already exists. Please choose a different one.");
-        }
+//    public ClubData createClub(ClubData club) {
+//        // Check if user with the same username already exists
+//        if (clubRepository.findByClubName(club.getClubName()).isPresent()) {
+//            throw new RuntimeException("ClubName already exists. Please choose a different one.");
+//        }
+//
+//        // TODO Add validation or business logic
+//        // Save the new user
+//        return clubRepository.save(club);
+//    }
 
-        // TODO Add validation or business logic
-        // Save the new user
+    public ClubData saveClub(ClubData club) {
         return clubRepository.save(club);
     }
 }

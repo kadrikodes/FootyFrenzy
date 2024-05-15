@@ -9,8 +9,9 @@ import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 
 
-
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @JsonDeserialize(using = ClubDataDeserializer.class)
@@ -20,16 +21,19 @@ public class ClubData {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long clubId;
     private String clubName;
+//    @OneToMany(mappedBy = "club", cascade = CascadeType.ALL, orphanRemoval = true)
+//    private List<PlayerData> players;
+
     @OneToMany(mappedBy = "club", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<PlayerData> players;
+    private Set<PlayerData> players = new HashSet<>();
 
     public ClubData() {
     }
 
-    public ClubData(String clubName, List<PlayerData> players) {
-        this.clubName = clubName;
-        this.players = players;
-    }
+//    public ClubData(String clubName, List<PlayerData> players) {
+//        this.clubName = clubName;
+//        this.players = players;
+//    }
     public ClubData(String clubName) {
         this.clubName = clubName;
     }
@@ -50,11 +54,18 @@ public class ClubData {
         this.clubName = clubName;
     }
 
-    public List<PlayerData> getPlayers() {
+//    public List<PlayerData> getPlayers() {
+//        return players;
+//    }
+//
+//    public void setPlayers(List<PlayerData> players) {
+//        this.players = players;
+//    }
+    public Set<PlayerData> getPlayers() {
         return players;
     }
 
-    public void setPlayers(List<PlayerData> players) {
+    public void setPlayers(Set<PlayerData> players) {
         this.players = players;
     }
 }

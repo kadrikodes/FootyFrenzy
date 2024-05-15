@@ -212,23 +212,23 @@ public class PlayerControllerFullSpringTest {
         verify(mockPlayerService, times(1)).getPlayerDataByPlayerName(playerName);
     }
 
-    @Test
-    void testAddPlayer() throws Exception {
-        ClubData clubData = new ClubData("Manchester City", new ArrayList<>());
-        PlayerData cityPlayer = new PlayerData("Manchester City", "John Stones", "Defender", clubData);
-        clubData.getPlayers().add(cityPlayer);
-
-        String json = mapper.writeValueAsString(cityPlayer);
-
-        MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.post("/players");
-        MvcResult result = mockMvc.perform((requestBuilder)
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(json))
-                .andExpect(status().isCreated())
-                .andReturn();
-
-        verify(mockPlayerService, times(1)).addPlayer(any(PlayerData.class));
-    }
+//    @Test
+//    void testAddPlayer() throws Exception {
+//        ClubData clubData = new ClubData("Manchester City", new ArrayList<>());
+//        PlayerData cityPlayer = new PlayerData("Manchester City", "John Stones", "Defender", clubData);
+//        clubData.getPlayers().add(cityPlayer);
+//
+//        String json = mapper.writeValueAsString(cityPlayer);
+//
+//        MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.post("/players");
+//        MvcResult result = mockMvc.perform((requestBuilder)
+//                        .contentType(MediaType.APPLICATION_JSON)
+//                        .content(json))
+//                .andExpect(status().isCreated())
+//                .andReturn();
+//
+//        verify(mockPlayerService, times(1)).addPlayer(any(PlayerData.class));
+//    }
 
     @Test
     void testValidatePlayerSelection() throws Exception {

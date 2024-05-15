@@ -1,5 +1,6 @@
 package football.frenzy.service;
 
+import football.frenzy.dataaccess.ClubRepository;
 import football.frenzy.dataaccess.PlayerRepository;
 import football.frenzy.entity.ClubData;
 import football.frenzy.entity.DraftData;
@@ -7,6 +8,7 @@ import football.frenzy.entity.PlayerData;
 import football.frenzy.entity.model.DraftRound;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -14,10 +16,12 @@ import java.util.Optional;
 @Service
 public class PlayerService {
     private final PlayerRepository playerRepository;
+    private final ClubRepository clubRepository;
 
     @Autowired
-    public PlayerService(PlayerRepository playerRepository) {
+    public PlayerService(PlayerRepository playerRepository, ClubRepository clubRepository) {
         this.playerRepository = playerRepository;
+        this.clubRepository = clubRepository;
     }
 
     public List<PlayerData> getAllPlayers() {
@@ -28,7 +32,7 @@ public class PlayerService {
         return playerRepository.findByClubClubId(clubId);
     }
     public List<PlayerData> getPlayersByClub(String clubName) {
-        return playerRepository.findByClubName(clubName);
+        return playerRepository.findByClubClubName(clubName);
     }
     public PlayerData getPlayerById(Long playerId) {
         Optional<PlayerData> playerOptional = playerRepository.findById(playerId);
@@ -42,7 +46,21 @@ public class PlayerService {
         return playerRepository.findPlayerDataByPlayerName(name);
     }
 
-    public PlayerData addPlayer(PlayerData player) {
+//    public PlayerData addPlayer(PlayerData player) {
+//        return playerRepository.save(player);
+//    }
+
+    @Transactional
+    public PlayerData addPlayer(PlayerData playerData, Long clubId) {
+        ClubData club = clubRepository.findById(clubId)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid club ID: " + clubId));
+        playerData.setClub(club);
+        return playerRepository.save(playerData);
+    }
+
+    public PlayerData addPlayerToClub(Long clubId, PlayerData player) {
+        ClubData club = clubRepository.findById(clubId).orElseThrow(() -> new RuntimeException("Club not found"));
+        player.setClub(club);
         return playerRepository.save(player);
     }
 
