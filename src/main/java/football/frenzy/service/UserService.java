@@ -32,5 +32,10 @@ public class UserService {
         Optional<UserData> userOptional = userRepository.findByUsername(userName);
         return userOptional.isPresent();
     }
+
+    public UserData getUserById(Long userId) {
+        Optional<UserData> userOptional = userRepository.findById(userId);
+        return userOptional.orElse(null);
+    }
 }
 

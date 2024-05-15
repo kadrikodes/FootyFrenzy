@@ -24,6 +24,9 @@ public class PlayerData {
     @JoinColumn(name = "draft_id")
     private DraftData draftData;
 
+    public PlayerData() {
+    }
+
     public PlayerData(String clubName, String playerName, String position, ClubData club) {
         this.clubName = clubName;
         this.playerName = playerName;

@@ -61,5 +61,15 @@ public class ClubService {
         return allClubs;
     }
 
+    public ClubData createClub(ClubData club) {
+        // Check if user with the same username already exists
+        if (clubRepository.findByClubName(club.getClubName()).isPresent()) {
+            throw new RuntimeException("ClubName already exists. Please choose a different one.");
+        }
+
+        // TODO Add validation or business logic
+        // Save the new user
+        return clubRepository.save(club);
+    }
 }
 

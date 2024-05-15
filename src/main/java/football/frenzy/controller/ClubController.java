@@ -2,8 +2,10 @@ package football.frenzy.controller;
 
 import football.frenzy.entity.ClubData;
 import football.frenzy.entity.PlayerData;
+import football.frenzy.entity.UserData;
 import football.frenzy.service.ClubService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -44,6 +46,12 @@ public class ClubController {
         } else {
             return ResponseEntity.notFound().build();
         }
+    }
+
+    @PostMapping
+    public ResponseEntity<ClubData> createClub(@RequestBody ClubData club) {
+        ClubData createdClub = clubService.createClub(club);
+        return new ResponseEntity<>(createdClub, HttpStatus.CREATED);
     }
 }
 

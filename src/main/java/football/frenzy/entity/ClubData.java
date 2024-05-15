@@ -1,5 +1,6 @@
 package football.frenzy.entity;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import jakarta.persistence.*;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -12,6 +13,7 @@ import jakarta.persistence.OneToMany;
 import java.util.List;
 
 @Entity
+@JsonDeserialize(using = ClubDataDeserializer.class)
 public class ClubData {
 
     @Id
@@ -27,6 +29,9 @@ public class ClubData {
     public ClubData(String clubName, List<PlayerData> players) {
         this.clubName = clubName;
         this.players = players;
+    }
+    public ClubData(String clubName) {
+        this.clubName = clubName;
     }
 
     public Long getClubId() {
